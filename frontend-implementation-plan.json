@@ -1,0 +1,396 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "RankAI - AI Directory Frontend Implementation",
+  "requirements": [
+    {
+      "id": "REQ-5",
+      "summary": "Create homepage with hero section, search bar, popular categories grid, and trending AI tools section",
+      "acceptanceCriteria": [
+        "Hero heading uses Instrument Serif font at large size",
+        "Search bar is prominent and functional",
+        "Categories displayed as grid cards",
+        "Trending tools section shows top-ranked tools"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Add Instrument Serif and Inter font imports from Google Fonts in the document head"
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "create",
+          "description": "Create homepage with hero section featuring large 'Find the Best AI Tool for Any Task' heading in Instrument Serif, subtitle, prominent search bar with 'What do you want to do?' placeholder, popular categories grid (6-8 category cards), and trending AI tools section displaying top-ranked tools. Fetch trending tools via getAllTools backend method and display top 6-8 by rankingScore. Include search functionality that navigates to search results on submit."
+        },
+        {
+          "path": "frontend/src/components/SearchBar.tsx",
+          "operation": "create",
+          "description": "Create reusable SearchBar component with large input field, search icon, and submit handler. Component accepts onSearch callback prop and placeholder text. Style with rounded-2xl borders, soft neutral colors, and generous padding for premium minimal look."
+        },
+        {
+          "path": "frontend/src/components/CategoryCard.tsx",
+          "operation": "create",
+          "description": "Create CategoryCard component displaying category name, icon placeholder, and tool count. Use rounded-2xl corners, soft borders (border-neutral-200/dark:border-neutral-800), smooth hover scale transition (200ms), and link to /category/:slug route."
+        },
+        {
+          "path": "frontend/src/components/ToolCard.tsx",
+          "operation": "create",
+          "description": "Create ToolCard component displaying tool name, description excerpt, pricing badge, rating, and categories. Use clean minimal card design with rounded-2xl, soft borders, generous whitespace, and smooth hover transitions. Link to /tool/:slug route."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Configure React Router with route for / pointing to HomePage component. Ensure Layout wrapper is applied."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Create category page with ranked tools, sorting options, pricing filter, and ranking badges",
+      "acceptanceCriteria": [
+        "Dynamic route fetches tools by category slug",
+        "Sorting controls filter and reorder tools client-side",
+        "Pricing filter toggles Free/Freemium/Paid",
+        "Top 3 tools display visual ranking badges",
+        "Cards render in clean vertical list"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CategoryPage.tsx",
+          "operation": "create",
+          "description": "Create category page at route /category/:slug that fetches tools via getToolsByCategory backend method. Implement sorting dropdown (Top Rated, Free, Most Popular) and pricing filter checkboxes (Free/Freemium/Paid). Display tools in vertical list using ToolCard component. Add ranking badges (#1, #2, #3) to top three tools. Apply client-side sorting and filtering logic."
+        },
+        {
+          "path": "frontend/src/components/SortingControls.tsx",
+          "operation": "create",
+          "description": "Create SortingControls component with dropdown for sort options (Top Rated, Free, Most Popular) and pricing filter checkboxes. Use premium minimal styling with rounded borders and smooth transitions."
+        },
+        {
+          "path": "frontend/src/components/RankingBadge.tsx",
+          "operation": "create",
+          "description": "Create RankingBadge component displaying position number (1, 2, 3) with distinctive styling. Use rounded design with accent colors and clear typography."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route /category/:slug pointing to CategoryPage component in React Router configuration."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Create tool detail page displaying comprehensive tool information and related tools",
+      "acceptanceCriteria": [
+        "Dynamic route fetches tool by slug",
+        "All tool details rendered clearly",
+        "Pros and cons displayed as separate lists",
+        "Visit Website button links to tool.website",
+        "Related tools section shows 3-4 tools from same category"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ToolDetailPage.tsx",
+          "operation": "create",
+          "description": "Create tool detail page at route /tool/:slug that fetches tool via getToolBySlug backend method. Display tool name, logo placeholder, description, tags as pills, pricing badge, rating, pros list (with checkmark icons), cons list (with X icons), Best For section (formatted list), and Visit Website button linking to tool.website. Below main content, add Related Tools section fetching 3-4 tools from same category via getToolsByCategory. Use premium minimal card layouts with generous whitespace and rounded-2xl corners."
+        },
+        {
+          "path": "frontend/src/components/ProConsList.tsx",
+          "operation": "create",
+          "description": "Create ProConsList component that renders pros and cons in separate columns with appropriate icons (checkmark for pros, X for cons). Use clean typography and adequate spacing."
+        },
+        {
+          "path": "frontend/src/components/TagPill.tsx",
+          "operation": "create",
+          "description": "Create TagPill component for displaying tags with rounded-full shape, subtle background, and minimal styling consistent with premium design aesthetic."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route /tool/:slug pointing to ToolDetailPage component in React Router configuration."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Implement smart search functionality with debounced keyword matching and ranking",
+      "acceptanceCriteria": [
+        "Search bar triggers backend searchTools query",
+        "Results display immediately as user types (debounced)",
+        "Example query 'remove background from image' returns relevant tools",
+        "Results sorted by ranking score"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useToolSearch.ts",
+          "operation": "create",
+          "description": "Create useToolSearch hook that calls searchTools backend method with debounced input (300ms). Return loading state, results array, and error handling. Use react-query for caching and state management."
+        },
+        {
+          "path": "frontend/src/pages/SearchResultsPage.tsx",
+          "operation": "create",
+          "description": "Create search results page at route /search that reads query param, uses useToolSearch hook to fetch results, and displays tools in vertical list using ToolCard component. Show loading state, empty state ('No tools found'), and result count. Results pre-sorted by rankingScore from backend."
+        },
+        {
+          "path": "frontend/src/components/SearchBar.tsx",
+          "operation": "modify",
+          "description": "Update SearchBar component to support both instant search mode (with debounced onChange callback) and submit mode (navigation to /search). Add loading indicator when search is active."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route /search pointing to SearchResultsPage component in React Router configuration."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Apply premium minimal SaaS UI design with clean aesthetics and generous whitespace",
+      "acceptanceCriteria": [
+        "All cards use soft borders and rounded corners",
+        "Whitespace between elements is generous",
+        "Hover effects are subtle (scale, opacity)",
+        "No heavy shadows or gradients",
+        "Layout feels clean and uncluttered"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Update global styles to establish premium minimal design system. Set CSS custom properties for soft border colors (--border-light: rgb(229 229 229), --border-dark: rgb(38 38 38)), spacing scale with generous values, and subtle shadow definitions. Apply base styles for clean typography and smooth transitions. Ensure pure white background in light mode and soft gray (#171717 or #1a1a1a) in dark mode."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Configure Tailwind with extended spacing scale for generous whitespace, borderRadius values (2xl, 3xl), soft neutral color palette (neutral-200 for light borders, neutral-800 for dark borders), and transition timing functions. Add animation utilities for smooth hover effects (scale-[1.02], duration-200)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Configure typography with Instrument Serif for hero headings and Inter for body text",
+      "acceptanceCriteria": [
+        "Instrument Serif loaded and applied to hero headings",
+        "Inter applied to all body text, buttons, labels",
+        "Hero heading is visually prominent with large size",
+        "Letter spacing is normal (not expanded)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Add font family configuration with 'Instrument Serif' for display (serif) family and 'Inter' for sans family. Set default font to Inter for body text."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define custom CSS classes .font-hero for Instrument Serif (font-family: 'Instrument Serif', serif) and ensure body uses Inter by default. Set hero heading sizes (text-5xl md:text-6xl lg:text-7xl) with normal letter spacing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Implement dark/light theme toggle with proper contrast and soft dark mode colors",
+      "acceptanceCriteria": [
+        "Theme toggle button in navbar switches between modes",
+        "Light mode uses white (#ffffff) background",
+        "Dark mode uses soft gray (e.g., #171717 or #1a1a1a), not black",
+        "All text maintains proper contrast in both modes",
+        "Theme preference persists across sessions"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useTheme.ts",
+          "operation": "create",
+          "description": "Create useTheme hook that manages theme state (light/dark) using localStorage for persistence. Apply theme class to document root element. Return current theme and toggle function."
+        },
+        {
+          "path": "frontend/src/components/ThemeToggle.tsx",
+          "operation": "create",
+          "description": "Create ThemeToggle button component using useTheme hook. Display sun icon for light mode, moon icon for dark mode. Style with smooth transitions and minimal design. Include in navbar."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Configure dark mode styles using Tailwind dark: variant. Set light mode background to white (#ffffff) and dark mode to soft gray (#171717). Define text colors with proper contrast: light mode uses near-black text, dark mode uses near-white text. Apply to all components consistently."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Enable darkMode with 'class' strategy. Configure dark mode color palette with soft grays instead of pure black."
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "Create responsive mobile design with single column layout and mobile-optimized interactions",
+      "acceptanceCriteria": [
+        "Below tablet breakpoint, layout switches to single column",
+        "Search bar sticks to bottom on mobile",
+        "Filter panels collapse into drawer or accordion",
+        "All interactive elements at least 44x44px",
+        "No content causes horizontal scroll"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/MobileSearchBar.tsx",
+          "operation": "create",
+          "description": "Create mobile-specific search bar component that sticks to bottom of viewport (fixed positioning). Include backdrop blur and safe area padding. Show on mobile breakpoint only."
+        },
+        {
+          "path": "frontend/src/components/FilterDrawer.tsx",
+          "operation": "create",
+          "description": "Create FilterDrawer component that slides up from bottom on mobile, containing SortingControls and pricing filters. Include close button and backdrop overlay. Use on CategoryPage for mobile."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Add responsive grid classes to categories section (grid-cols-1 sm:grid-cols-2 lg:grid-cols-3) and tools section. Ensure generous tap targets (min-h-[44px] min-w-[44px]) for all interactive elements. Apply overflow-x-hidden to prevent horizontal scroll."
+        },
+        {
+          "path": "frontend/src/pages/CategoryPage.tsx",
+          "operation": "modify",
+          "description": "Wrap SortingControls in FilterDrawer component on mobile (visible md:hidden for drawer, hidden md:flex for desktop controls). Ensure tools list uses full-width cards on mobile."
+        },
+        {
+          "path": "frontend/src/pages/ToolDetailPage.tsx",
+          "operation": "modify",
+          "description": "Apply single column layout on mobile with stacked sections. Ensure related tools section scrolls horizontally on mobile or switches to vertical list."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Build navbar with logo, navigation links, theme toggle, and responsive mobile menu",
+      "acceptanceCriteria": [
+        "Logo displays 'RankAI' and links to homepage",
+        "Categories link navigates to category listing",
+        "Submit Tool link is present (can be placeholder)",
+        "Theme toggle visible and functional",
+        "Mobile menu collapses behind hamburger icon"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Navbar.tsx",
+          "operation": "create",
+          "description": "Create Navbar component with RankAI logo (text-based, links to /), navigation links (Categories to /categories, Submit Tool to /admin), ThemeToggle component, and LoginButton component. On desktop, show all items in row. On mobile, show logo and hamburger button that toggles mobile menu overlay. Use sticky positioning and soft bottom border. Style with premium minimal aesthetic and smooth transitions."
+        },
+        {
+          "path": "frontend/src/components/MobileMenu.tsx",
+          "operation": "create",
+          "description": "Create MobileMenu component that slides in from right side on mobile, displaying navigation links, ThemeToggle, and LoginButton in vertical stack. Include close button and backdrop overlay. Animate smoothly with transition."
+        },
+        {
+          "path": "frontend/src/pages/CategoriesPage.tsx",
+          "operation": "create",
+          "description": "Create categories listing page at route /categories displaying all available categories as grid of CategoryCard components. Include page heading and description. Use same category data structure as homepage."
+        },
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "operation": "create",
+          "description": "Create Layout wrapper component that includes Navbar component and applies fade-in animation to page content on mount. Use as wrapper for all pages."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route /categories pointing to CategoriesPage component in React Router configuration. Ensure Layout component wraps all routes."
+        }
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "summary": "Integrate Internet Identity authentication for admin route with protected access and Add New Tool form",
+      "acceptanceCriteria": [
+        "Admin route requires Internet Identity login",
+        "Unauthenticated users redirected or blocked",
+        "Add New Tool form includes all tool fields",
+        "Form submission calls backend addTool method",
+        "Success message shown after tool added"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/LoginButton.tsx",
+          "operation": "create",
+          "description": "Create LoginButton component using the authorization component's authentication pattern. Use useInternetIdentity hook to access login, clear, loginStatus, and identity. Display 'Login' when logged out, 'Logout' when logged in, and 'Logging in...' during authentication. On logout, clear queryClient cache. Handle 'User is already authenticated' error by clearing and retrying. Style consistently with premium minimal design."
+        },
+        {
+          "path": "frontend/src/hooks/useGetCallerUserProfile.ts",
+          "operation": "create",
+          "description": "Create useGetCallerUserProfile hook following the authorization component's pattern to prevent profile modal flash. Use useQuery with queryKey ['currentUserProfile'], call actor.getCallerUserProfile(), enable only when actor is available and not fetching. Return custom state with isLoading that accounts for actorFetching, and isFetched that ensures actor availability."
+        },
+        {
+          "path": "frontend/src/components/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create ProfileSetupModal component that appears when user is authenticated, profile is fetched, but userProfile is null. Display form asking for user name, call saveCallerUserProfile on submit, then refetch profile. Use modal overlay with premium minimal styling and smooth transitions."
+        },
+        {
+          "path": "frontend/src/pages/AdminPage.tsx",
+          "operation": "create",
+          "description": "Create admin page at route /admin with authentication guard using the authorization component. Use isCallerAdmin backend method to verify admin access. If not authenticated, show message prompting login. If not admin, display AccessDeniedScreen component. For authenticated admins, show Add New Tool form with all Tool type fields (name, slug, description, categories multi-select, pricing dropdown, website, rating, tags input, bestFor array input, pros array input, cons array input). Generate id and timestamps automatically. On submit, call addTool backend method and show success message. Handle errors gracefully."
+        },
+        {
+          "path": "frontend/src/components/AccessDeniedScreen.tsx",
+          "operation": "create",
+          "description": "Create AccessDeniedScreen component displaying friendly access denied message with explanation and link back to homepage. Use premium minimal styling with centered layout."
+        },
+        {
+          "path": "frontend/src/components/AddToolForm.tsx",
+          "operation": "create",
+          "description": "Create AddToolForm component with all Tool type fields as controlled inputs. Use form validation to ensure required fields. Include multi-select for categories, radio/select for pricing, array inputs (chips/tags) for tags, bestFor, pros, cons. Style with premium minimal design using rounded-2xl inputs, soft borders, generous spacing. Submit handler calls onSubmit prop with form data."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route /admin pointing to AdminPage component in React Router configuration. Ensure route is protected by checking authentication status."
+        }
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "summary": "Add subtle animations including fade-in, hover scale, and smooth theme transitions",
+      "acceptanceCriteria": [
+        "Page content fades in on initial load",
+        "Cards scale slightly on hover with 200ms duration",
+        "Theme switch animates smoothly",
+        "All transitions feel polished, not jarring"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add CSS keyframe animation for fade-in effect (opacity 0 to 1 over 400ms). Define utility classes for fade-in animation and hover scale effects. Set transition-duration to 200ms for hover effects."
+        },
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "operation": "modify",
+          "description": "Apply fade-in animation class to main content wrapper so all page transitions include smooth fade-in effect."
+        },
+        {
+          "path": "frontend/src/components/ToolCard.tsx",
+          "operation": "modify",
+          "description": "Add hover:scale-[1.02] transition-transform duration-200 classes to card element for subtle scale effect on hover."
+        },
+        {
+          "path": "frontend/src/components/CategoryCard.tsx",
+          "operation": "modify",
+          "description": "Add hover:scale-[1.02] transition-transform duration-200 classes to card element for subtle scale effect on hover."
+        },
+        {
+          "path": "frontend/src/components/ThemeToggle.tsx",
+          "operation": "modify",
+          "description": "Add smooth transition classes (transition-all duration-300) to button and icon elements for smooth theme switch animation."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add catch-all route for 404 NotFoundPage component at the end of route configuration to handle unknown routes."
+        },
+        {
+          "path": "frontend/src/pages/NotFoundPage.tsx",
+          "operation": "create",
+          "description": "Create 404 Not Found page with friendly message, link back to homepage, and premium minimal styling."
+        }
+      ]
+    }
+  ]
+}

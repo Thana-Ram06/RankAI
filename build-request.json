@@ -1,0 +1,273 @@
+{
+  "kind": "build_request",
+  "title": "Build RankAI - AI Directory with Smart Search & Premium Minimal UI",
+  "projectName": "RankAI",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create Motoko backend with Tool type including id, name, slug, description, categories (array), pricing (Free/Freemium/Paid), website, rating, rankingScore, tags (array), bestFor (array), pros (array), cons (array), createdAt, updatedAt",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Tool type defined in Motoko with all specified fields",
+        "Pricing is a variant type with Free, Freemium, and Paid options",
+        "Arrays properly typed for categories, tags, bestFor, pros, cons"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement backend methods: addTool, getAllTools, getToolBySlug, getToolsByCategory, searchTools with keyword matching against tags, bestFor, and categories",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "addTool creates new tool with generated timestamp",
+        "getAllTools returns all tools sorted by rankingScore descending",
+        "getToolBySlug returns single tool or null",
+        "getToolsByCategory filters by category slug",
+        "searchTools matches keywords case-insensitively against tags, bestFor, and categories arrays"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Seed backend with 8-10 example AI tools covering categories like image editing, content creation, coding assistance, productivity, with realistic data including ratings, tags, pros, cons, and bestFor descriptions",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "At least 8 tools seeded on initialization",
+        "Tools span multiple categories",
+        "Each tool has realistic ratings (4.0-5.0), tags, pros, cons, bestFor arrays",
+        "rankingScore calculated as (rating * 2) + initial popularity weight"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement ranking algorithm where rankingScore = (rating * 2) + keywordMatches + popularityWeight, with search results sorted by rankingScore descending",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Search method calculates keywordMatches by counting tag/bestFor/category matches",
+        "Final rankingScore computed using the formula",
+        "Results sorted highest to lowest rankingScore"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Create homepage with hero section containing large heading 'Find the Best AI Tool for Any Task', subtitle, large search bar with placeholder 'What do you want to do?', popular categories grid, and trending AI tools section",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Hero heading uses Instrument Serif font at large size",
+        "Search bar is prominent and functional",
+        "Categories displayed as grid cards",
+        "Trending tools section shows top-ranked tools"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Create category page at route /category/:slug showing ranked tools with sorting options (Top Rated, Free, Most Popular), pricing filter, clean vertical card list, and ranking badges (1, 2, 3) for top tools",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dynamic route fetches tools by category slug",
+        "Sorting controls filter and reorder tools client-side",
+        "Pricing filter toggles Free/Freemium/Paid",
+        "Top 3 tools display visual ranking badges",
+        "Cards render in clean vertical list"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Create tool detail page at route /tool/:slug displaying tool name, logo placeholder, description, tags, pricing type, pros list, cons list, Best For section, Visit Website button, and related tools section",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dynamic route fetches tool by slug",
+        "All tool details rendered clearly",
+        "Pros and cons displayed as separate lists",
+        "Visit Website button links to tool.website",
+        "Related tools section shows 3-4 tools from same category"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Implement smart search functionality that matches user queries against tool tags, bestFor, and categories arrays, then sorts results by rankingScore descending",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Search bar triggers backend searchTools query",
+        "Results display immediately as user types (debounced)",
+        "Example query 'remove background from image' returns relevant tools",
+        "Results sorted by ranking score"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Apply premium minimal SaaS UI design inspired by tpot.cc with center-aligned layout, generous whitespace, soft borders (border-neutral-200/dark:border-neutral-800), rounded-2xl or rounded-3xl corners, clean minimal cards, smooth hover transitions, and no visual clutter",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All cards use soft borders and rounded corners",
+        "Whitespace between elements is generous",
+        "Hover effects are subtle (scale, opacity)",
+        "No heavy shadows or gradients",
+        "Layout feels clean and uncluttered"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Configure typography with Instrument Serif for hero headings only and Inter for all body text, with large elegant hero typography and normal letter spacing throughout",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Instrument Serif loaded and applied to hero headings",
+        "Inter applied to all body text, buttons, labels",
+        "Hero heading is visually prominent with large size",
+        "Letter spacing is normal (not expanded)"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Implement dark/light theme toggle in navbar with pure white background in light mode, soft neutral gray (NOT pitch black) in dark mode, and ensure proper contrast throughout",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Theme toggle button in navbar switches between modes",
+        "Light mode uses white (#ffffff) background",
+        "Dark mode uses soft gray (e.g., #171717 or #1a1a1a), not black",
+        "All text maintains proper contrast in both modes",
+        "Theme preference persists across sessions"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "text": "Create responsive mobile design with single column layout, sticky bottom search on mobile, collapsible filters, large tap targets, and no horizontal overflow",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Below tablet breakpoint, layout switches to single column",
+        "Search bar sticks to bottom on mobile",
+        "Filter panels collapse into drawer or accordion",
+        "All interactive elements at least 44x44px",
+        "No content causes horizontal scroll"
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "text": "Build navbar with RankAI logo text, Categories link, Submit Tool placeholder link, theme toggle button, and responsive mobile menu",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Logo displays 'RankAI' and links to homepage",
+        "Categories link navigates to category listing",
+        "Submit Tool link is present (can be placeholder)",
+        "Theme toggle visible and functional",
+        "Mobile menu collapses behind hamburger icon"
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "text": "Integrate Internet Identity authentication for admin route /admin with protected access and Add New Tool form",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin route requires Internet Identity login",
+        "Unauthenticated users redirected or blocked",
+        "Add New Tool form includes all tool fields",
+        "Form submission calls backend addTool method",
+        "Success message shown after tool added"
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "Add subtle animations including fade-in on page load, smooth hover scale on cards (200ms transition), and smooth transitions for theme toggle",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Page content fades in on initial load",
+        "Cards scale slightly on hover with 200ms duration",
+        "Theme switch animates smoothly",
+        "All transitions feel polished, not jarring"
+      ]
+    }
+  ],
+  "constraints": [
+    "Use only Motoko for backend (no Firebase or external databases)",
+    "Use only React + TypeScript + Vite for frontend (no Next.js)",
+    "Deploy on Internet Computer (no Vercel deployment)",
+    "Use Internet Identity for authentication (no Google OAuth or Firebase Auth)",
+    "Do not edit immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui"
+  ],
+  "nonGoals": [
+    "Server-side rendering or Next.js App Router",
+    "Firebase integration of any kind",
+    "Vercel deployment configuration",
+    "External API integrations for AI tools",
+    "Real-time collaborative features",
+    "Advanced admin dashboard beyond basic tool submission"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

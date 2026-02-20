@@ -1,0 +1,249 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-homepage-with-hero-section-containing-large-heading-find-the-best-ai-tool-for-any-task-subtitle-large-search-bar-with-placeholder-what-do-you-want-to-do-popular-categories-grid-and-trending-ai-tools-section",
+      "featureTitle": "Create homepage with hero section containing large heading 'Find the Best AI Tool for Any Task', subtitle, large search bar with placeholder 'What do you want to do?', popular categories grid, and trending AI tools section",
+      "files": [
+        "frontend/index.html",
+        "frontend/src/App.tsx",
+        "frontend/src/components/CategoryCard.tsx",
+        "frontend/src/components/SearchBar.tsx",
+        "frontend/src/components/ToolCard.tsx",
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-category-page-at-route-category-slug-showing-ranked-tools-with-sorting-options-top-rated-free-most-popular-pricing-filter-clean-vertical-card-list-and-ranking-badges-1-2-3-for-top-tools",
+      "featureTitle": "Create category page at route /category/:slug showing ranked tools with sorting options (Top Rated, Free, Most Popular), pricing filter, clean vertical card list, and ranking badges (1, 2, 3) for top tools",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/RankingBadge.tsx",
+        "frontend/src/components/SortingControls.tsx",
+        "frontend/src/pages/CategoryPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-tool-detail-page-at-route-tool-slug-displaying-tool-name-logo-placeholder-description-tags-pricing-type-pros-list-cons-list-best-for-section-visit-website-button-and-related-tools-section",
+      "featureTitle": "Create tool detail page at route /tool/:slug displaying tool name, logo placeholder, description, tags, pricing type, pros list, cons list, Best For section, Visit Website button, and related tools section",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/ProConsList.tsx",
+        "frontend/src/components/TagPill.tsx",
+        "frontend/src/pages/ToolDetailPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-smart-search-functionality-that-matches-user-queries-against-tool-tags-bestfor-and-categories-arrays-then-sorts-results-by-rankingscore-descending",
+      "featureTitle": "Implement smart search functionality that matches user queries against tool tags, bestFor, and categories arrays, then sorts results by rankingScore descending",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/SearchBar.tsx",
+        "frontend/src/pages/SearchResultsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-premium-minimal-saas-ui-design-inspired-by-tpot-cc-with-center-aligned-layout-generous-whitespace-soft-borders-border-neutral-200-dark-border-neutral-800-rounded-2xl-or-rounded-3xl-corners-clean-minimal-cards-smooth-hover-transitions-and-no-visual-clutter",
+      "featureTitle": "Apply premium minimal SaaS UI design inspired by tpot.cc with center-aligned layout, generous whitespace, soft borders (border-neutral-200/dark:border-neutral-800), rounded-2xl or rounded-3xl corners, clean minimal cards, smooth hover transitions, and no visual clutter",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-configure-typography-with-instrument-serif-for-hero-headings-only-and-inter-for-all-body-text-with-large-elegant-hero-typography-and-normal-letter-spacing-throughout",
+      "featureTitle": "Configure typography with Instrument Serif for hero headings only and Inter for all body text, with large elegant hero typography and normal letter spacing throughout",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-dark-light-theme-toggle-in-navbar-with-pure-white-background-in-light-mode-soft-neutral-gray-not-pitch-black-in-dark-mode-and-ensure-proper-contrast-throughout",
+      "featureTitle": "Implement dark/light theme toggle in navbar with pure white background in light mode, soft neutral gray (NOT pitch black) in dark mode, and ensure proper contrast throughout",
+      "files": [
+        "frontend/src/components/ThemeToggle.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-responsive-mobile-design-with-single-column-layout-sticky-bottom-search-on-mobile-collapsible-filters-large-tap-targets-and-no-horizontal-overflow",
+      "featureTitle": "Create responsive mobile design with single column layout, sticky bottom search on mobile, collapsible filters, large tap targets, and no horizontal overflow",
+      "files": [
+        "frontend/src/components/FilterDrawer.tsx",
+        "frontend/src/pages/CategoryPage.tsx",
+        "frontend/src/pages/HomePage.tsx",
+        "frontend/src/pages/ToolDetailPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-navbar-with-rankai-logo-text-categories-link-submit-tool-placeholder-link-theme-toggle-button-and-responsive-mobile-menu",
+      "featureTitle": "Build navbar with RankAI logo text, Categories link, Submit Tool placeholder link, theme toggle button, and responsive mobile menu",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/components/MobileMenu.tsx",
+        "frontend/src/components/Navbar.tsx",
+        "frontend/src/pages/CategoriesPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-integrate-internet-identity-authentication-for-admin-route-admin-with-protected-access-and-add-new-tool-form",
+      "featureTitle": "Integrate Internet Identity authentication for admin route /admin with protected access and Add New Tool form",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AccessDeniedScreen.tsx",
+        "frontend/src/components/AddToolForm.tsx",
+        "frontend/src/components/LoginButton.tsx",
+        "frontend/src/components/ProfileSetupModal.tsx",
+        "frontend/src/pages/AdminPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-14"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-subtle-animations-including-fade-in-on-page-load-smooth-hover-scale-on-cards-200ms-transition-and-smooth-transitions-for-theme-toggle",
+      "featureTitle": "Add subtle animations including fade-in on page load, smooth hover scale on cards (200ms transition), and smooth transitions for theme toggle",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/CategoryCard.tsx",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/components/ThemeToggle.tsx",
+        "frontend/src/components/ToolCard.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/NotFoundPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

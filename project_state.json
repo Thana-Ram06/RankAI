@@ -1,0 +1,207 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "RankAI - AI Directory & Smart Recommendation Engine. Premium minimal SaaS UI inspired by tpot.cc. Features include tool search, category browsing, tool detail pages, smart ranking algorithm, dark/light theme, and authentication. Built with React + TypeScript + Tailwind CSS + Motoko backend on Internet Computer.",
+  "architectural_notes": [
+    "Backend: Motoko canister for data storage and business logic",
+    "Frontend: React + TypeScript + Vite + Tailwind CSS",
+    "Auth: Internet Identity (replaces Firebase Auth)",
+    "Database: Tools stored in canister stable storage with schema: id, name, slug, description, categories[], pricing, website, rating, rankingScore, tags[], bestFor[], pros[], cons[]",
+    "Fonts: Instrument Serif for hero headings, Inter for body text",
+    "Theme: Light (white bg) and dark (soft gray bg) with toggle in navbar",
+    "UI aesthetic: Premium minimal SaaS style inspired by tpot.cc - center aligned, generous whitespace, soft borders, rounded corners, subtle shadows",
+    "Routing: Homepage, /category/[slug], /tool/[slug], /search, /admin",
+    "Components: Navbar, Footer, SearchBar, ToolCard, CategoryCard, ThemeToggle",
+    "Seed data: 8-10 example AI tools with realistic data"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-homepage-with-hero-section-containing-large-heading-find-the-best-ai-tool-for-any-task-subtitle-large-search-bar-with-placeholder-what-do-you-want-to-do-popular-categories-grid-and-trending-ai-tools-section",
+      "title": "Create homepage with hero section containing large heading 'Find the Best AI Tool for Any Task', subtitle, large search bar with placeholder 'What do you want to do?', popular categories grid, and trending AI tools section",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-category-page-at-route-category-slug-showing-ranked-tools-with-sorting-options-top-rated-free-most-popular-pricing-filter-clean-vertical-card-list-and-ranking-badges-1-2-3-for-top-tools",
+      "title": "Create category page at route /category/:slug showing ranked tools with sorting options (Top Rated, Free, Most Popular), pricing filter, clean vertical card list, and ranking badges (1, 2, 3) for top tools",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-tool-detail-page-at-route-tool-slug-displaying-tool-name-logo-placeholder-description-tags-pricing-type-pros-list-cons-list-best-for-section-visit-website-button-and-related-tools-section",
+      "title": "Create tool detail page at route /tool/:slug displaying tool name, logo placeholder, description, tags, pricing type, pros list, cons list, Best For section, Visit Website button, and related tools section",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-smart-search-functionality-that-matches-user-queries-against-tool-tags-bestfor-and-categories-arrays-then-sorts-results-by-rankingscore-descending",
+      "title": "Implement smart search functionality that matches user queries against tool tags, bestFor, and categories arrays, then sorts results by rankingScore descending",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-premium-minimal-saas-ui-design-inspired-by-tpot-cc-with-center-aligned-layout-generous-whitespace-soft-borders-border-neutral-200-dark-border-neutral-800-rounded-2xl-or-rounded-3xl-corners-clean-minimal-cards-smooth-hover-transitions-and-no-visual-clutter",
+      "title": "Apply premium minimal SaaS UI design inspired by tpot.cc with center-aligned layout, generous whitespace, soft borders (border-neutral-200/dark:border-neutral-800), rounded-2xl or rounded-3xl corners, clean minimal cards, smooth hover transitions, and no visual clutter",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-typography-with-instrument-serif-for-hero-headings-only-and-inter-for-all-body-text-with-large-elegant-hero-typography-and-normal-letter-spacing-throughout",
+      "title": "Configure typography with Instrument Serif for hero headings only and Inter for all body text, with large elegant hero typography and normal letter spacing throughout",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-dark-light-theme-toggle-in-navbar-with-pure-white-background-in-light-mode-soft-neutral-gray-not-pitch-black-in-dark-mode-and-ensure-proper-contrast-throughout",
+      "title": "Implement dark/light theme toggle in navbar with pure white background in light mode, soft neutral gray (NOT pitch black) in dark mode, and ensure proper contrast throughout",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-responsive-mobile-design-with-single-column-layout-sticky-bottom-search-on-mobile-collapsible-filters-large-tap-targets-and-no-horizontal-overflow",
+      "title": "Create responsive mobile design with single column layout, sticky bottom search on mobile, collapsible filters, large tap targets, and no horizontal overflow",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-navbar-with-rankai-logo-text-categories-link-submit-tool-placeholder-link-theme-toggle-button-and-responsive-mobile-menu",
+      "title": "Build navbar with RankAI logo text, Categories link, Submit Tool placeholder link, theme toggle button, and responsive mobile menu",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-integrate-internet-identity-authentication-for-admin-route-admin-with-protected-access-and-add-new-tool-form",
+      "title": "Integrate Internet Identity authentication for admin route /admin with protected access and Add New Tool form",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-subtle-animations-including-fade-in-on-page-load-smooth-hover-scale-on-cards-200ms-transition-and-smooth-transitions-for-theme-toggle",
+      "title": "Add subtle animations including fade-in on page load, smooth hover scale on cards (200ms transition), and smooth transitions for theme toggle",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Homepage with hero section, large search bar, popular categories grid, and trending AI tools",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Category page with ranked tools, sorting options, pricing filters, and ranking badges",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Tool detail page with name, logo, description, tags, pricing, pros/cons, best-for section, and related tools",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Smart search with keyword matching against tags, bestFor, and categories, sorted by ranking score",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Premium minimal UI with Instrument Serif headings, Inter body text, generous whitespace, soft borders, rounded corners",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Dark/light theme toggle with proper contrast (white light mode, soft gray dark mode)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Responsive mobile design with single column layout, sticky search, collapsible filters",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Authentication with Internet Identity for admin features",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Admin route with add new tool form",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Ranking algorithm: rankingScore = (rating * 2) + keywordMatches + popularityWeight",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Create Motoko backend with Tool type including id, name, slug, description, categories (array), pricing (Free/Freemium/Paid), website, rating, rankingScore, tags (array), bestFor (array), pros (array), cons (array), createdAt, updatedAt",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Implement backend methods: addTool, getAllTools, getToolBySlug, getToolsByCategory, searchTools with keyword matching against tags, bestFor, and categories",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Seed backend with 8-10 example AI tools covering categories like image editing, content creation, coding assistance, productivity, with realistic data including ratings, tags, pros, cons, and bestFor descriptions",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Implement ranking algorithm where rankingScore = (rating * 2) + keywordMatches + popularityWeight, with search results sorted by rankingScore descending",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "RankAI",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
