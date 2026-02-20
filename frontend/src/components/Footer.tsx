@@ -1,11 +1,8 @@
-import { SiX, SiGithub } from 'react-icons/si';
+import { Github, Twitter } from 'lucide-react';
 import { Heart } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const appIdentifier = typeof window !== 'undefined' 
-    ? encodeURIComponent(window.location.hostname) 
-    : 'rankai-app';
 
   return (
     <footer className="border-t border-border bg-background">
@@ -19,7 +16,7 @@ export default function Footer() {
               className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Twitter"
             >
-              <SiX size={20} />
+              <Twitter size={20} />
             </a>
             <a 
               href="https://github.com" 
@@ -28,21 +25,13 @@ export default function Footer() {
               className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label="GitHub"
             >
-              <SiGithub size={20} />
+              <Github size={20} />
             </a>
           </div>
           
           <div className="text-center text-sm text-muted-foreground">
             <p className="flex items-center justify-center gap-1">
-              © {currentYear} RankAI. Built with <Heart size={14} className="text-red-500 fill-red-500" /> using{' '}
-              <a 
-                href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appIdentifier}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground transition-colors underline"
-              >
-                caffeine.ai
-              </a>
+              © {currentYear} RankAI. Built with <Heart size={14} className="text-red-500 fill-red-500" />
             </p>
           </div>
         </div>

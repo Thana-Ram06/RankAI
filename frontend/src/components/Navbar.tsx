@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { Menu, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import LoginButton from './LoginButton';
@@ -7,7 +7,6 @@ import MobileMenu from './MobileMenu';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
 
   return (
     <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">

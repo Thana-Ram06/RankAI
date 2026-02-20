@@ -7,7 +7,7 @@ import ToolCard from '../components/ToolCard';
 import { Button } from '../components/ui/button';
 import { Skeleton } from '../components/ui/skeleton';
 import { Badge } from '../components/ui/badge';
-import { Pricing } from '../backend';
+import { Pricing } from '../types';
 
 export default function ToolDetailPage() {
   const { slug } = useParams({ from: '/tool/$slug' });
@@ -41,7 +41,7 @@ export default function ToolDetailPage() {
     );
   }
 
-  const pricingLabel = tool.pricing === Pricing.free ? 'Free' : tool.pricing === Pricing.freemium ? 'Freemium' : 'Paid';
+  const pricingLabel = tool.pricing === Pricing.Free ? 'Free' : tool.pricing === Pricing.Freemium ? 'Freemium' : 'Paid';
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
@@ -71,7 +71,7 @@ export default function ToolDetailPage() {
               <div className="flex items-center gap-4 mb-6">
                 <div className="flex items-center gap-1">
                   <Star size={20} className="fill-yellow-400 text-yellow-400" />
-                  <span className="text-lg font-semibold">{Number(tool.rating)}.0</span>
+                  <span className="text-lg font-semibold">{tool.rating}.0</span>
                 </div>
               </div>
 
@@ -122,7 +122,7 @@ export default function ToolDetailPage() {
             <h2 className="text-2xl font-semibold text-foreground mb-6">Related Tools</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {related.map((relatedTool) => (
-                <ToolCard key={relatedTool.id.toString()} tool={relatedTool} />
+                <ToolCard key={relatedTool.id} tool={relatedTool} />
               ))}
             </div>
           </section>

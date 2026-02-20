@@ -7,7 +7,7 @@ import FilterDrawer from '../components/FilterDrawer';
 import { useGetAllTools } from '../hooks/useQueries';
 import { Skeleton } from '../components/ui/skeleton';
 import { Button } from '../components/ui/button';
-import { Pricing } from '../backend';
+import { Pricing } from '../types';
 
 export default function CategoryPage() {
   const { slug } = useParams({ from: '/category/$slug' });
@@ -29,13 +29,13 @@ export default function CategoryPage() {
 
     const sorted = [...filtered].sort((a, b) => {
       if (sortBy === 'top-rated') {
-        return Number(b.rating) - Number(a.rating);
+        return b.rating - a.rating;
       } else if (sortBy === 'most-popular') {
-        return Number(b.rankingScore) - Number(a.rankingScore);
+        return b.rankingScore - a.rankingScore;
       } else if (sortBy === 'free') {
-        if (a.pricing === Pricing.free && b.pricing !== Pricing.free) return -1;
-        if (a.pricing !== Pricing.free && b.pricing === Pricing.free) return 1;
-        return Number(b.rankingScore) - Number(a.rankingScore);
+        if (a.pricing === Pricing.Free && b.pricing !== Pricing.Free) return -1;
+        if (a.pricing !== Pricing.Free && b.pricing === Pricing.Free) return 1;
+        return b.rankingScore - a.rankingScore;
       }
       return 0;
     });
@@ -99,7 +99,7 @@ export default function CategoryPage() {
             ) : (
               <div className="space-y-6">
                 {filteredAndSortedTools.map((tool, index) => (
-                  <ToolCard key={tool.id.toString()} tool={tool} rank={index + 1} />
+                  <ToolCard key={tool.id} tool={tool} rank={index + 1} />
                 ))}
               </div>
             )}

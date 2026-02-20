@@ -1,7 +1,7 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Checkbox } from './ui/checkbox';
 import { Label } from './ui/label';
-import { Pricing } from '../backend';
+import { Pricing } from '../types';
 
 interface SortingControlsProps {
   sortBy: string;
@@ -36,9 +36,9 @@ export default function SortingControls({
         <Label className="text-sm font-medium mb-3 block">Pricing</Label>
         <div className="space-y-3">
           {[
-            { value: Pricing.free, label: 'Free' },
-            { value: Pricing.freemium, label: 'Freemium' },
-            { value: Pricing.paid, label: 'Paid' }
+            { value: Pricing.Free, label: 'Free' },
+            { value: Pricing.Freemium, label: 'Freemium' },
+            { value: Pricing.Paid, label: 'Paid' }
           ].map(({ value, label }) => (
             <div key={value} className="flex items-center gap-2">
               <Checkbox

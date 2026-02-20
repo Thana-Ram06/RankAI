@@ -1,41 +1,26 @@
-import { useInternetIdentity } from '../hooks/useInternetIdentity';
-import { useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import { Button } from './ui/button';
 
 export default function LoginButton() {
-  const { login, clear, loginStatus, identity } = useInternetIdentity();
-  const queryClient = useQueryClient();
-
-  const isAuthenticated = !!identity;
-  const disabled = loginStatus === 'logging-in';
-  const text = loginStatus === 'logging-in' ? 'Logging in...' : isAuthenticated ? 'Logout' : 'Login';
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const handleAuth = async () => {
-    if (isAuthenticated) {
-      await clear();
-      queryClient.clear();
-    } else {
-      try {
-        await login();
-      } catch (error: any) {
-        console.error('Login error:', error);
-        if (error.message === 'User is already authenticated') {
-          await clear();
-          setTimeout(() => login(), 300);
-        }
-      }
-    }
+    setIsLoggingIn(true);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    setIsAuthenticated(!isAuthenticated);
+    setIsLoggingIn(false);
   };
 
   return (
     <Button
       onClick={handleAuth}
-      disabled={disabled}
+      disabled={isLoggingIn}
       variant={isAuthenticated ? 'outline' : 'default'}
       size="sm"
       className="transition-colors"
     >
-      {text}
+      {isLoggingIn ? 'Loading...' : isAuthenticated ? 'Logout' : 'Login'}
     </Button>
   );
 }

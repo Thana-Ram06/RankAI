@@ -9,7 +9,7 @@ export default function HomePage() {
   const { data: tools = [], isLoading } = useGetAllTools();
 
   const sortedTools = useMemo(() => {
-    return [...tools].sort((a, b) => Number(b.rankingScore) - Number(a.rankingScore));
+    return [...tools].sort((a, b) => b.rankingScore - a.rankingScore);
   }, [tools]);
 
   const trendingTools = sortedTools.slice(0, 6);
@@ -75,7 +75,7 @@ export default function HomePage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {trendingTools.map((tool) => (
-              <ToolCard key={tool.id.toString()} tool={tool} />
+              <ToolCard key={tool.id} tool={tool} />
             ))}
           </div>
         )}

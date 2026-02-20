@@ -5,11 +5,11 @@ import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { X } from 'lucide-react';
-import type { Tool } from '../backend';
-import { Pricing } from '../backend';
+import type { Tool } from '../types';
+import { Pricing } from '../types';
 
 interface AddToolFormProps {
-  onSubmit: (tool: Omit<Tool, 'id' | 'createdAt' | 'updatedAt'>) => void;
+  onSubmit: (tool: Omit<Tool, 'id'>) => void;
   isPending: boolean;
 }
 
@@ -52,15 +52,15 @@ export default function AddToolForm({ onSubmit, isPending }: AddToolFormProps) {
       slug,
       description,
       website,
-      rating: BigInt(ratingNum),
+      rating: ratingNum,
       pricing,
       categories,
       tags,
       bestFor,
       pros,
       cons,
-      rankingScore: BigInt(rankingScore),
-    } as Omit<Tool, 'id' | 'createdAt' | 'updatedAt'>);
+      rankingScore,
+    });
   };
 
   return (

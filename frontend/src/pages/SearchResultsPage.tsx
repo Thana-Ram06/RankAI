@@ -40,7 +40,7 @@ export default function SearchResultsPage() {
             </p>
             <div className="space-y-6">
               {results.map((tool) => (
-                <ToolCard key={tool.id.toString()} tool={tool} />
+                <ToolCard key={tool.id} tool={tool} />
               ))}
             </div>
           </>
