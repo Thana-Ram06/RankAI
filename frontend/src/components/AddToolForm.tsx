@@ -19,7 +19,7 @@ export default function AddToolForm({ onSubmit, isPending }: AddToolFormProps) {
   const [description, setDescription] = useState('');
   const [website, setWebsite] = useState('');
   const [rating, setRating] = useState('5');
-  const [pricing, setPricing] = useState<Pricing>(Pricing.free);
+  const [pricing, setPricing] = useState<Pricing>(Pricing.Free);
   const [categories, setCategories] = useState<string[]>([]);
   const [categoryInput, setCategoryInput] = useState('');
   const [tags, setTags] = useState<string[]>([]);
@@ -136,9 +136,9 @@ export default function AddToolForm({ onSubmit, isPending }: AddToolFormProps) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={Pricing.free}>Free</SelectItem>
-            <SelectItem value={Pricing.freemium}>Freemium</SelectItem>
-            <SelectItem value={Pricing.paid}>Paid</SelectItem>
+            <SelectItem value={Pricing.Free}>Free</SelectItem>
+            <SelectItem value={Pricing.Freemium}>Freemium</SelectItem>
+            <SelectItem value={Pricing.Paid}>Paid</SelectItem>
           </SelectContent>
         </Select>
       </div>
