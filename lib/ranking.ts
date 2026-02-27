@@ -48,23 +48,3 @@ export async function getFeaturedCategories(): Promise<
   return items.sort((a, b) => b.count - a.count).slice(0, 6);
 }
 
-import { Tool } from '../lib/types/tool'
-
-export function computeRanking(tool: Tool, query?: string): number {
-  const ratingWeight = (tool.rating ?? 0) * 2
-  const keywordMatches = doKeywordMatches(tool, query)
-  const popularityWeight = tool.rankingScore ?? 0
-  return ratingWeight + keywordMatches + popularityWeight
-}
-
-function doKeywordMatches(tool: Tool, query?: string): number {
-  if (!query) return 0
-  const words = query.toLowerCase().split(/\s+/).filter(w => w)
-  const corpusParts = [ ...tool.tags, ...tool.bestFor, ...tool.categories ]
-  const corpus = corpusParts.join(' ').toLowerCase()
-  let count = 0
-  for (const w of words) {
-    if (corpus.includes(w)) count += 1
-  }
-  return count
-}
