@@ -1,28 +1,48 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./lib/**/*.{ts}", "./pages/**/*.{ts,tsx}"] ,
+  darkMode: 'class',
+  content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './lib/**/*.{js,ts,jsx,tsx,mdx}'
+  ],
   theme: {
+    container: {
+      center: true,
+      padding: '1.5rem',
+      screens: {
+        '2xl': '1100px'
+      }
+    },
     extend: {
       colors: {
-        neutral: {
-          50: '#fafafa',
-          100: '#f5f5f5',
-          200: '#e5e7eb',
-          800: '#1f2937'
+        background: {
+          DEFAULT: '#ffffff',
+          dark: '#171717'
+        },
+        border: {
+          light: '#e5e5e5',
+          dark: '#262626'
         }
       },
-      fontFamily: {
-        body: ['Inter', 'ui-sans-serif', 'system-ui'],
-        hero: ['InstrumentSerif', 'Georgia', 'serif']
-      },
       borderRadius: {
-        '2xl': '1rem',
-        '3xl': '1.5rem'
+        '2xl': '1rem'
       },
-      transitionProperty: {
-        'transform': 'transform'
+      transitionDuration: {
+        DEFAULT: '200ms'
+      },
+      fontFamily: {
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-instrument-serif)', 'serif']
+      },
+      boxShadow: {
+        soft: '0 18px 45px rgba(15, 23, 42, 0.08)'
+      },
+      scale: {
+        '102': '1.02'
       }
     }
   },
   plugins: []
-}
+};
+
