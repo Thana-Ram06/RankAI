@@ -10,7 +10,7 @@ interface ToolPageProps {
 export async function generateMetadata(
   { params }: ToolPageProps
 ): Promise<Metadata> {
-  const tool = seedTools.find((t) => t.slug === params.slug);
+  const tool = seedTools.find((t) => t.slug.toLowerCase() === params.slug.toLowerCase());
   const title = tool ? `${tool.name} – AI tool on RankAI` : 'Tool not found – RankAI';
   const description = tool?.description ?? 'Tool not found';
   const url = `/tool/${params.slug}`;
@@ -29,11 +29,11 @@ export async function generateMetadata(
   };
 }
 
-export default async function ToolPage({ params }: ToolPageProps) {
-  const tool = seedTools.find((t) => t.slug === params.slug);
+export default function ToolPage({ params }: ToolPageProps) {
+  const tool = seedTools.find((t) => t.slug.toLowerCase() === params.slug.toLowerCase());
 
   if (!tool) {
-    notFound();
+    return notFound();
   }
 
   const related = seedTools
