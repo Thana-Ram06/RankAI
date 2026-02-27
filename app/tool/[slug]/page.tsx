@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getAllTools } from '@/lib/ranking';
+import { seedTools } from '@/lib/seedData';
 import ProConsList from '@/components/ProConsList';
 
 interface ToolPageProps {
@@ -10,17 +10,10 @@ interface ToolPageProps {
 export async function generateMetadata(
   { params }: ToolPageProps
 ): Promise<Metadata> {
-  const tools = await getAllTools();
-  const tool = tools.find((t) => t.slug === params.slug);
-  if (!tool) {
-    return {
-      title: 'Tool not found – RankAI'
-    };
-  }
-
-  const title = `${tool.name} – AI tool on RankAI`;
-  const description = tool.description;
-  const url = `/tool/${tool.slug}`;
+  const tool = seedTools.find((t) => t.slug === params.slug);
+  const title = tool ? `${tool.name} – AI tool on RankAI` : 'Tool not found – RankAI';
+  const description = tool?.description ?? 'Tool not found';
+  const url = `/tool/${params.slug}`;
 
   return {
     title,
@@ -37,14 +30,13 @@ export async function generateMetadata(
 }
 
 export default async function ToolPage({ params }: ToolPageProps) {
-  const tools = await getAllTools();
-  const tool = tools.find((t) => t.slug === params.slug);
+  const tool = seedTools.find((t) => t.slug === params.slug);
 
   if (!tool) {
     notFound();
   }
 
-  const related = tools
+  const related = seedTools
     .filter((t) => t.slug !== tool.slug && t.categories.some((c) => tool.categories.includes(c)))
     .slice(0, 4);
 
@@ -146,4 +138,3 @@ export default async function ToolPage({ params }: ToolPageProps) {
     </div>
   );
 }
-

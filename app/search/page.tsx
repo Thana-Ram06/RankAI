@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { searchTools } from '@/lib/search';
+import { seedTools } from '@/lib/seedData';
 import ToolCard from '@/components/ToolCard';
 import SearchBar from '@/components/SearchBar';
 
@@ -12,9 +12,15 @@ export const metadata: Metadata = {
   description: 'Natural language search across the RankAI directory of curated AI tools.'
 };
 
-export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const query = searchParams.q ?? '';
-  const results = query ? await searchTools(query) : [];
+export default function SearchPage({ searchParams }: SearchPageProps) {
+  const query = searchParams.q?.toLowerCase() ?? '';
+  const results = query
+    ? seedTools.filter((tool) =>
+        tool.name.toLowerCase().includes(query) ||
+        tool.description.toLowerCase().includes(query) ||
+        tool.tags.some((tag) => tag.toLowerCase().includes(query))
+      )
+    : [];
 
   return (
     <div className="py-14 md:py-16 space-y-10">
@@ -49,4 +55,3 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     </div>
   );
 }
-
