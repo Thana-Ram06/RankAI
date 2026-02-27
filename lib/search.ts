@@ -40,10 +40,3 @@ export async function searchTools(query: string): Promise<Tool[]> {
   return scored.sort((a, b) => b.rankingScore - a.rankingScore);
 }
 
-import { Tool } from './types/tool'
-
-export function matchQuery(tool: Tool, query: string): boolean {
-  const q = query.toLowerCase()
-  const hay = [ ...tool.tags, ...tool.bestFor, ...tool.categories, tool.name.toLowerCase() ].join(' ')
-  return hay.includes(q)
-}
