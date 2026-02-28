@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { seedTools } from '@/lib/seedData';
+import { getFeaturedCategories, getTrendingTools } from '@/lib/ranking';
 import SearchBar from '@/components/SearchBar';
 import CategoryCard from '@/components/CategoryCard';
 import ToolCard from '@/components/ToolCard';
@@ -10,25 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  // Derive categories and trending tools from seed data only
-  const allTools = seedTools;
-
-  const categoriesFromSeed = Array.from(
-    new Set(allTools.flatMap((t) => t.categories))
-  );
-
-  const categories = categoriesFromSeed.map((slug) => {
-    const label = slug
-      .split('-')
-      .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-      .join(' ');
-    const count = allTools.filter((t) => t.categories.includes(slug)).length;
-    return { slug, label, count };
-  });
-
-  const trending = [...allTools]
-    .sort((a, b) => b.rating - a.rating)
-    .slice(0, 4);
+  const [categories, trending] = await Promise.all([
+    getFeaturedCategories(),
+    getTrendingTools()
+  ]);
 
   return (
     <div className="py-20 flex-1 flex flex-col items-center">
@@ -75,3 +60,4 @@ export default async function HomePage() {
     </div>
   );
 }
+

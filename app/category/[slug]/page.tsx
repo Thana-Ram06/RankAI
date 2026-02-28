@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { seedTools } from '@/lib/seedData';
+import { getAllTools } from '@/lib/ranking';
 import ToolCard from '@/components/ToolCard';
 
 interface CategoryPageProps {
@@ -28,7 +28,7 @@ export async function generateMetadata(
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const tools = seedTools.filter((tool) =>
+  const tools = (await getAllTools()).filter((tool) =>
     tool.categories.map((c) => c.toLowerCase()).includes(params.slug.toLowerCase())
   );
 
@@ -58,3 +58,4 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     </div>
   );
 }
+
