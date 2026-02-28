@@ -1,18 +1,92 @@
-import type { Metadata } from 'next';
-import { getAllTools } from '@/lib/ranking';
-import ToolCard from '@/components/ToolCard';
+// import type { Metadata } from 'next';
+// import { getAllTools } from '@/lib/ranking';
+// import ToolCard from '@/components/ToolCard';
+
+// interface CategoryPageProps {
+//   params: { slug: string };
+// }
+
+// export async function generateMetadata(
+//   { params }: CategoryPageProps
+// ): Promise<Metadata> {
+//   const label = params.slug
+//     .split('-')
+//     .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+//     .join(' ');
+
+//   const title = `${label} AI tools – RankAI`;
+//   const description = `Ranked AI tools for ${label.toLowerCase()} workflows.`;
+
+//   return {
+//     title,
+//     description,
+//     openGraph: {
+//       title,
+//       description
+//     }
+//   };
+// }
+
+// export default async function CategoryPage({ params }: CategoryPageProps) {
+//   const tools = (await getAllTools()).filter((tool) =>
+//     tool.categories.map((c) => c.toLowerCase()).includes(params.slug.toLowerCase())
+//   );
+
+//   const label = params.slug
+//     .split('-')
+//     .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+//     .join(' ');
+
+//   return (
+//     <div className="py-14 md:py-16 w-full">
+//       <header className="max-w-2xl space-y-3 mb-8">
+//         <p className="badge-soft uppercase tracking-[0.18em] text-[0.7rem] w-fit">
+//           Category
+//         </p>
+//         <h1 className="font-serif text-3xl md:text-4xl tracking-tight">
+//           {label} AI tools
+//         </h1>
+//         <p className="muted text-sm">
+//           Tools in this collection are sorted by their overall ranking score.
+//         </p>
+//       </header>
+//       <div className="grid gap-4 md:grid-cols-2">
+//         {tools.map((tool, index) => (
+//           <ToolCard key={tool.slug} tool={tool} index={index} />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+import type { Metadata } from "next";
+import { seedTools } from "@/lib/seedData";
+import ToolCard from "@/components/ToolCard";
 
 interface CategoryPageProps {
-  params: { slug: string };
+  params: {
+    slug: string;
+  };
 }
 
-export async function generateMetadata(
+/* -------------------- */
+/* Metadata generation  */
+/* -------------------- */
+export function generateMetadata(
   { params }: CategoryPageProps
-): Promise<Metadata> {
+): Metadata {
   const label = params.slug
-    .split('-')
+    .split("-")
     .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-    .join(' ');
+    .join(" ");
 
   const title = `${label} AI tools – RankAI`;
   const description = `Ranked AI tools for ${label.toLowerCase()} workflows.`;
@@ -22,20 +96,28 @@ export async function generateMetadata(
     description,
     openGraph: {
       title,
-      description
-    }
+      description,
+    },
   };
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
-  const tools = (await getAllTools()).filter((tool) =>
-    tool.categories.map((c) => c.toLowerCase()).includes(params.slug.toLowerCase())
+/* -------------------- */
+/* Page component       */
+/* -------------------- */
+export default function CategoryPage({ params }: CategoryPageProps) {
+  const slug = params.slug.toLowerCase();
+
+  const tools = seedTools.filter((tool) =>
+    Array.isArray(tool.categories) &&
+    tool.categories.some(
+      (c) => c.toLowerCase() === slug
+    )
   );
 
-  const label = params.slug
-    .split('-')
+  const label = slug
+    .split("-")
     .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-    .join(' ');
+    .join(" ");
 
   return (
     <div className="py-14 md:py-16 w-full">
@@ -50,12 +132,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           Tools in this collection are sorted by their overall ranking score.
         </p>
       </header>
+
       <div className="grid gap-4 md:grid-cols-2">
         {tools.map((tool, index) => (
-          <ToolCard key={tool.slug} tool={tool} index={index} />
+          <ToolCard
+            key={tool.slug}
+            tool={tool}
+            index={index}
+          />
         ))}
       </div>
     </div>
   );
 }
-
