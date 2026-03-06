@@ -151,91 +151,39 @@
 
 
 
+"use client";
 
-
-
-
-
-
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { useEffect, useState } from "react";
 import { getAllTools } from "@/lib/ranking";
-import ProConsList from "@/components/ProConsList";
 
-export const dynamic = "force-static";
+export default function ToolPage({ params }: { params: { slug: string } }) {
+  const [tool, setTool] = useState<any>(null);
 
-interface ToolPageProps {
-  params: { slug: string };
-}
+  useEffect(() => {
+    async function loadTool() {
+      const tools = await getAllTools();
+      const found = tools.find((t: any) => t.slug === params.slug);
+      setTool(found);
+    }
 
-export async function generateStaticParams() {
-  const tools = await getAllTools();
-  return tools.map((tool) => ({
-    slug: tool.slug,
-  }));
-}
+    loadTool();
+  }, [params.slug]);
 
-export async function generateMetadata(
-  { params }: ToolPageProps
-): Promise<Metadata> {
-  const tools = await getAllTools();
-  const tool = tools.find((t) => t.slug === params.slug);
-
-  if (!tool) {
-    return { title: "Tool not found – RankAI" };
-  }
-
-  return {
-    title: `${tool.name} – RankAI`,
-    description: tool.description,
-  };
-}
-
-export default async function ToolPage({
-  params,
-}: ToolPageProps) {
-  const tools = await getAllTools();
-  const tool = tools.find((t) => t.slug === params.slug);
-
-  if (!tool) {
-    return notFound();
-  }
-
-  const related = tools
-    .filter(
-      (t) =>
-        t.slug !== tool.slug &&
-        t.categories.some((c) => tool.categories.includes(c))
-    )
-    .slice(0, 4);
+  if (!tool) return <div className="p-10">Loading...</div>;
 
   return (
-    <div className="py-14 md:py-16 space-y-10">
-      <header className="space-y-5 max-w-3xl">
-        <h1 className="font-serif text-4xl tracking-tight">
-          {tool.name}
-        </h1>
-        <p className="muted">{tool.description}</p>
-      </header>
+    <div className="py-16 max-w-3xl mx-auto">
+      <h1 className="text-4xl font-semibold mb-4">{tool.name}</h1>
 
-      <ProConsList pros={tool.pros} cons={tool.cons} />
+      <p className="text-neutral-600 mb-6">{tool.description}</p>
 
-      {related.length > 0 && (
-        <div className="space-y-3">
-          <p className="muted text-xs uppercase tracking-wide">
-            Related tools
-          </p>
-          {related.map((t) => (
-            <a
-              key={t.slug}
-              href={`/tool/${t.slug}`}
-              className="block border rounded-xl p-3"
-            >
-              {t.name}
-            </a>
-          ))}
-        </div>
-      )}
+      <a
+        href={tool.website}
+        target="_blank"
+        className="px-5 py-2 rounded-lg bg-black text-white"
+      >
+        Visit Website
+      </a>
     </div>
   );
 }
