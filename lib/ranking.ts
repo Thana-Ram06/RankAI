@@ -50,16 +50,71 @@
 
 
 
+// import { collection, getDocs } from "firebase/firestore";
+// import { db } from "./firebase";
+
+// export async function getAllTools() {
+//   const snapshot = await getDocs(collection(db, "tools"));
+
+//   const tools = snapshot.docs.map((doc) => ({
+//     id: doc.id,
+//     ...doc.data(),
+//   }));
+
+//   return tools;
+// }
+
+
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 
+// 🔹 Ranking Score
+export function computeRankingScore(tool: any, keywordMatches: number = 0) {
+  return (tool.rating || 0) * 2 + keywordMatches;
+}
+
+// 🔹 Get All Tools
 export async function getAllTools() {
   const snapshot = await getDocs(collection(db, "tools"));
 
   const tools = snapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
+    rankingScore: computeRankingScore(doc.data()),
   }));
 
   return tools;
+}
+
+// 🔹 Trending Tools
+export async function getTrendingTools(limit = 6) {
+  const tools = await getAllTools();
+
+  return tools
+    .sort((a: any, b: any) => b.rankingScore - a.rankingScore)
+    .slice(0, limit);
+}
+
+// 🔹 Featured Categories
+export async function getFeaturedCategories() {
+  const tools = await getAllTools();
+  const map = new Map<string, number>();
+
+  for (const tool of tools) {
+    if (!tool.categories) continue;
+
+    for (const category of tool.categories) {
+      const key = category.toLowerCase();
+      map.set(key, (map.get(key) || 0) + 1);
+    }
+  }
+
+  return Array.from(map.entries()).map(([slug, count]) => ({
+    slug,
+    label: slug
+      .split("-")
+      .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+      .join(" "),
+    count,
+  }));
 }
