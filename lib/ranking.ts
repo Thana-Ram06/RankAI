@@ -63,14 +63,53 @@
 
 //   return tools;
 // }
+import type { Tool } from '@/types/tool';
+import { seedTools } from './seedData';
 
-const tools = snapshot.docs.map((doc) => {
-  const data = doc.data() as any;
+// 🔥 Ranking function
+export function computeRankingScore(tool: Tool, keywordMatches: number = 0): number {
+  return tool.rating * 2 + keywordMatches;
+}
 
-  return {
-    id: doc.id,
-    slug: data.slug || doc.id, // 🔥 IMPORTANT FIX
-    ...data,
-    rankingScore: computeRankingScore(data),
-  };
-});
+// 🔥 Get all tools
+export async function getAllTools(): Promise<Tool[]> {
+  return seedTools.map((tool) => ({
+    ...tool,
+    rankingScore: computeRankingScore(tool),
+  }));
+}
+
+// 🔥 Trending tools
+export async function getTrendingTools(limit = 6): Promise<Tool[]> {
+  const tools = await getAllTools();
+  return tools
+    .slice()
+    .sort((a, b) => b.rankingScore - a.rankingScore)
+    .slice(0, limit);
+}
+
+// 🔥 Featured categories
+export async function getFeaturedCategories(): Promise<
+  { slug: string; label: string; count: number }[]
+> {
+  const tools = await getAllTools();
+  const map = new Map<string, number>();
+
+  for (const tool of tools) {
+    for (const category of tool.categories) {
+      const key = category.toLowerCase();
+      map.set(key, (map.get(key) ?? 0) + 1);
+    }
+  }
+
+  const items = Array.from(map.entries()).map(([slug, count]) => ({
+    slug,
+    label: slug
+      .split('-')
+      .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+      .join(' '),
+    count,
+  }));
+
+  return items.sort((a, b) => b.count - a.count).slice(0, 6);
+}
